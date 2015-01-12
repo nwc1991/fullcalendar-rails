@@ -4022,7 +4022,8 @@ function compareNormalRanges(range1, range2) {
 // A cmp function for determining which segments should take visual priority
 // DOES NOT WORK ON INVERTED BACKGROUND EVENTS because they have no eventStartMS/eventDurationMS
 function compareSegs(seg1, seg2) {
-	return seg1.eventStartMS - seg2.eventStartMS || // earlier events go first
+	return seg2.event.sorter - seg1.event.sorter || // My Sorter
+            	seg1.eventStartMS - seg2.eventStartMS || // earlier events go first
 		seg2.eventDurationMS - seg1.eventDurationMS || // tie? longer events go first
 		seg2.event.allDay - seg1.event.allDay || // tie? put all-day events first (booleans cast to 0/1)
 		(seg1.event.title || '').localeCompare(seg2.event.title); // tie? alphabetically by title
